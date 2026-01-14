@@ -1,10 +1,10 @@
 package com.doorbit.applemaps
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import tools.jackson.core.type.TypeReference
+import tools.jackson.databind.ObjectMapper
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.KotlinModule
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -108,10 +108,12 @@ class AppleMaps(
     }
 
     private fun defaultObjectMapper(): ObjectMapper {
-        val om = jacksonObjectMapper()
-        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        om.setSerializationInclusion(JsonInclude.Include.NON_NULL)
-        return om
+        return JsonMapper.builder()
+            .addModule(KotlinModule.Builder().build())
+            .changeDefaultPropertyInclusion { incl ->
+                incl.withValueInclusion(JsonInclude.Include.NON_NULL)
+            }
+            .build()
     }
 
     companion object {

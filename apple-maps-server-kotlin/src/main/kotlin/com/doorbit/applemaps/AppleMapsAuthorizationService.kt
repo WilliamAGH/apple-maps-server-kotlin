@@ -1,7 +1,7 @@
 package com.doorbit.applemaps
 
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
+import tools.jackson.databind.JsonNode
+import tools.jackson.databind.ObjectMapper
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -47,7 +47,7 @@ class AppleMapsAuthorizationService(
             }
 
             val jsonNode = objectMapper.readValue(response.body(), JsonNode::class.java)
-            val tokenString = jsonNode["accessToken"].asText()
+            val tokenString = jsonNode["accessToken"].stringValue()
             val expiresAt = extractExpiry(tokenString)
 
             this.accessToken = AccessToken(tokenString, expiresAt)

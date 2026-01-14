@@ -3,9 +3,9 @@ import com.vanniktech.maven.publish.KotlinJvm
 import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
-    kotlin("jvm") version "1.9.22"
+    kotlin("jvm") version "2.3.0"
     id("com.vanniktech.maven.publish") version "0.26.0"
-    id("org.jetbrains.dokka") version "1.9.10"
+    id("org.jetbrains.dokka") version "2.1.0"
 
     `java-library`
 }
@@ -18,10 +18,10 @@ repositories {
 }
 
 dependencies {
-    implementation(kotlin("stdlib:1.9.20"))
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.1")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.16.1")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+    implementation(kotlin("stdlib"))
+    implementation(platform("tools.jackson:jackson-bom:3.0.3"))
+    implementation("tools.jackson.module:jackson-module-kotlin")
+    implementation("tools.jackson.core:jackson-databind")
 }
 
 mavenPublishing {
