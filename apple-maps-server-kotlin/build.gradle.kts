@@ -31,5 +31,7 @@ mavenPublishing {
         sourcesJar = true,
     ))
     publishToMavenCentral(SonatypeHost.S01, true)
-    signAllPublications()
+    if (System.getenv("JITPACK") != "true") {
+        signAllPublications()
+    }
 }
