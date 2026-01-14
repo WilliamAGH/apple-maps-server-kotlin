@@ -4,4 +4,4 @@ before_install:
   - sdk install java 25-tem
   - sdk use java 25-tem
 install:
-  - ./gradlew publishToMavenLocal
+  - ./gradlew publishToMavenLocal -x dokkaHtml
